@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:todo/screens/auth/signup_screen.dart';
 import 'package:todo/services/auth_services.dart';
 import 'package:todo/screens/home_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,6 +21,7 @@ class LoginScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           foregroundColor: CupertinoColors.white,
           title: const Text(
@@ -76,6 +78,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   TextField(
+                    obscureText: true,
                     controller: _passwordController,
                     decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
@@ -96,33 +99,58 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 50),
-                  SizedBox(
-                    height: 50,
-                    width: MediaQuery.of(context).size.width / 1.5,
-                    child: ElevatedButton(
-                        onPressed: () async {
-                          User? user = await _auth.signInWithEmailAndPassword(
-                            _emailController.text,
-                            _passwordController.text,
-                          );
+                  Card(
+                    elevation: 2,
+                    shadowColor: CupertinoColors.black,
+                    child: SizedBox(
+                      height: 50,
+                      width: MediaQuery.of(context).size.width / 1.5,
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            User? user = await _auth.signInWithEmailAndPassword(
+                              _emailController.text,
+                              _passwordController.text,
+                            );
 
-                          if (user != null) {
-                            Navigator.push(
-                                // ignore: use_build_context_synchronously
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => const HomeScreen(),
-                                ));
-                          }
-                        },
-                        child: const Text(
-                          'LogIn Now',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: CupertinoColors.black,
-                          ),
-                        )),
+                            if (user != null) {
+                              Navigator.push(
+                                  // ignore: use_build_context_synchronously
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => const HomeScreen(),
+                                  ));
+                            }
+                          },
+                          child: const Text(
+                            'LogIn Now',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: CupertinoColors.black,
+                            ),
+                          )),
+                    ),
                   ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'OR',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(height: 20),
+                  OutlinedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => SignupScreen(),
+                            ));
+                      },
+                      child: const Text(
+                        "Don't have an account? Sign UP",
+                        style: TextStyle(
+                          color: CupertinoColors.black,
+                        ),
+                      )),
+                  const SizedBox(height: 30),
                 ],
               )),
         ),

@@ -21,6 +21,7 @@ class SignupScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           foregroundColor: CupertinoColors.white,
           title: const Text(
@@ -77,6 +78,7 @@ class SignupScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   TextField(
+                    obscureText: true,
                     controller: _passwordController,
                     decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
@@ -97,32 +99,36 @@ class SignupScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 50),
-                  SizedBox(
-                    height: 50,
-                    width: MediaQuery.of(context).size.width / 1.5,
-                    child: ElevatedButton(
-                        onPressed: () async {
-                          User? user = await _auth.registerWithEmailAndPassword(
-                            _emailController.text,
-                            _passwordController.text,
-                          );
+                  Card(
+                    elevation: 2,
+                    shadowColor: CupertinoColors.black,
+                    child: SizedBox(
+                      height: 50,
+                      width: MediaQuery.of(context).size.width / 1.5,
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            User? user =
+                                await _auth.registerWithEmailAndPassword(
+                              _emailController.text,
+                              _passwordController.text,
+                            );
 
-                          if (user != null) {
-                            Navigator.push(
-                                // ignore: use_build_context_synchronously
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => const HomeScreen(),
-                                ));
-                          }
-                        },
-                        child: const Text(
-                          'Register Now',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: CupertinoColors.black,
-                          ),
-                        )),
+                            if (user != null) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => const HomeScreen(),
+                                  ));
+                            }
+                          },
+                          child: const Text(
+                            'Register Now',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: CupertinoColors.black,
+                            ),
+                          )),
+                    ),
                   ),
                   const SizedBox(height: 20),
                   const Text(

@@ -8,7 +8,7 @@ class DatabaseServices {
 
   User? user = FirebaseAuth.instance.currentUser;
 
-  // Add ToDo Task
+  // Add to-do Task
   Future<DocumentReference> addToDoTasks(String title, String description) {
     return todoCollection.add({
       'uid': user!.uid,
@@ -19,7 +19,7 @@ class DatabaseServices {
     });
   }
 
-  // Update Todo Collections
+  // Update To-do Collections
   Future<void> updateTodo(String id, String title, String description) async {
     final updateTodoCollections =
         FirebaseFirestore.instance.collection('ToDos').doc(id);
@@ -29,12 +29,12 @@ class DatabaseServices {
     });
   }
 
-  // Update ToDo Tasks
+  // Update To-Do Tasks
   Future<void> updateTodoTask(String id, bool completed) async {
     return await todoCollection.doc(id).update({'completed': completed});
   }
 
-  // Update ToDo Tasks
+  // Update To-Do Tasks
   Future<void> deleteTodo(String id) async {
     return await todoCollection.doc(id).delete();
   }
